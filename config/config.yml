@@ -1,0 +1,9 @@
+app:
+    url: 'https://www.heyjobs.de/en/jobs-in-berlin'
+    table_name: 'jobs'
+db:
+    host: db
+    user: test
+    passwd: testpass
+    db: heyjobs
+    port: 5432
