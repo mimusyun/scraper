@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine, Column, Text, Integer
 from sqlalchemy.ext.declarative import declarative_base
-from run import load_config
+from utils import load_config
 
 
 Base = declarative_base()
