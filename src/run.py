@@ -1,26 +1,13 @@
-from sqlalchemy import create_engine, Column, Text, Integer
-from sqlalchemy.ext.declarative import declarative_base
+from init_db import init_db
 
 
-Base = declarative_base()
-metadata = Base.metadata
-
-
-class Job(Base):
-    __tablename__ = 'job_ads'
-    id = Column(Integer, primary_key=True)
-    uid = Column(Text)
-    title = Column(Text)
-
-
-def init_db(db_uri):
+def scrape_html(url):
     """
-    Drop all existing tables
-    Create table for job ads
+    Get html DOMs in str from the url
+    :param url:
+    :return:
     """
-    engine = create_engine(db_uri)
-    metadata.drop_all(engine)
-    metadata.create_all(engine)
+    pass
 
 
 def main():
