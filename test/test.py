@@ -1,5 +1,4 @@
 import unittest
-import test.prepare_utest
 from run import scrape_html
 
 
