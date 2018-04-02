@@ -39,6 +39,20 @@ class TestParseInfoFromHtml(unittest.TestCase):
         self.assertEqual(obj_data[0].uid, "b8e936de-f06c-41aa-ad38-d394f58d56b8")
         self.assertEqual(obj_data[0].title, "This is the job title I want to scrape!!!!!!!")
 
+    def test_invalid(self):
+        html_str = \
+            '<a target="_blank" href="/en/jobs/b8e936de-f06c-41aa-ad38-d394f58d56b8">' \
+            '<div data-reactid="377">' \
+            '<div>' \
+            '<div class="" data-reactid="381">' \
+            'This is the job title I want to scrape!!!!!!!' \
+            '</div>' \
+            '</div>' \
+            '</div>' \
+            '</a>'
+
+        self.assertRaises(ValueError, parse_info_from_html, html_str)
+
 
 if __name__ == '__main__':
     unittest.main()
