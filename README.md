@@ -7,7 +7,12 @@
     - title is always in <div> tag
     - title comes with the class 'job-card-title'
     
-## Consideration
-    - TDD using docker
+## Consideration 
     - Keep it simple & Maintain the agility (simple structure + config)
+    - TDD using docker
 
+## How to Run
+    ```
+    docker-compose run --rm start_dependencies
+    docker-compose up scraper
+    ```
