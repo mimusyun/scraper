@@ -1,4 +1,5 @@
 from urllib.request import urlopen
+from urllib.error import URLError, HTTPError
 from init_db import init_db
 
 
@@ -8,9 +9,21 @@ def scrape_html(url):
     :param url:
     :return:
     """
-    with urlopen(url) as response:
-        html = response.read().decode('utf-8', 'ignore')
-        return html
+
+    if not isinstance(url, str):
+        raise TypeError('Invalid arg: url must be str: {}'.format(str(type(url))))
+
+    try:
+        with urlopen(url) as response:
+            html = response.read().decode('utf-8', 'ignore')
+            return html
+    except HTTPError as e:
+        print('The server couldn\'t fulfill the request.')
+        raise HTTPError(url=url, code=e.code, msg=e.msg, hdrs=e.hdrs, fp=e.fp)
+    except URLError as e:
+        print('We failed to reach a server.')
+        raise URLError(e.reason)
+
 
 
 def main():
