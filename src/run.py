@@ -31,6 +31,11 @@ def main():
     # initialize db
     init_db(db_uri)
 
+    # todo
+    # scrape html in url
+    # parse uid & title from html
+    # insert data into db
+
 
 if __name__ == '__main__':
     main()
