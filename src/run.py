@@ -101,8 +101,8 @@ def main():
 
     conf = load_config()
 
-    db_uri = 'postgres://test:testpass@db:5432/heyjobs'
-    target_url = 'https://www.heyjobs.de/en/jobs-in-berlin'
+    db_uri = conf['app']['url']  # e.g. 'postgres://test:testpass@db:5432/heyjobs'
+    target_url = conf['app']['table_name']  # e.g. 'https://www.heyjobs.de/en/jobs-in-berlin'
 
     # initialize db
     init_db(db_uri)
