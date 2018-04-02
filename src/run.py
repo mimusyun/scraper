@@ -136,6 +136,5 @@ def main():
     insert_job_data(db_uri, job_ad_list)
 
 
-
 if __name__ == '__main__':
     main()
