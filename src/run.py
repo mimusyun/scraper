@@ -1,13 +1,10 @@
-import os
-import yaml
-
 from urllib.request import urlopen
 from urllib.error import URLError, HTTPError
 from bs4 import BeautifulSoup
 
 from sqlalchemy.orm import Session
-from sqlalchemy import create_engine
 
+from utils import load_config
 from init_db import init_db, Job
 
 
@@ -82,19 +79,6 @@ def insert_job_data(db_uri, job_data):
     session = Session(bind=engine)
     session.bulk_save_objects(job_data)
     session.commit()
-
-
-def load_config():
-    """
-    load project config written in yml
-    :return: conf dict
-    """
-
-    project_root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    conf_path = os.path.join(project_root_dir, 'config', 'config.yml')
-    with open(conf_path, 'r') as yml_file:
-        configs = yaml.load(yml_file)
-    return configs
 
 
 def generate_postgres_uri(conf):
