@@ -1,6 +1,6 @@
 import prepare_utest
 import unittest
-from run import scrape_html, URLError
+from run import scrape_html, parse_info_from_html, URLError
 
 
 class TestScrapeHtml(unittest.TestCase):
@@ -18,6 +18,26 @@ class TestScrapeHtml(unittest.TestCase):
 
     def test_invalid_arg_type(self):
         self.assertRaises(TypeError, scrape_html, 12345)
+
+
+class TestParseInfoFromHtml(unittest.TestCase):
+
+    def test_case0(self):
+        html_str = \
+            '<a target="_blank" href="/en/jobs/b8e936de-f06c-41aa-ad38-d394f58d56b8">' \
+            '<div data-reactid="377">' \
+            '<div>' \
+            '<div class="job-card-title" data-reactid="381">' \
+            'This is the job title I want to scrape!!!!!!!' \
+            '</div>' \
+            '</div>' \
+            '</div>' \
+            '</a>'
+        dict_data = parse_info_from_html(html_str)
+
+        self.assertEqual(len(dict_data), 1)
+        self.assertEqual(dict_data[0].uid, "b8e936de-f06c-41aa-ad38-d394f58d56b8")
+        self.assertEqual(dict_data[0].title, "This is the job title I want to scrape!!!!!!!")
 
 
 if __name__ == '__main__':
