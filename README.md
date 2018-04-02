@@ -9,4 +9,5 @@
     
 ## Consideration
     - TDD using docker
+    - Keep it simple & Maintain the agility (simple structure + config)
 
