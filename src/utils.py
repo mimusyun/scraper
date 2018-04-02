@@ -1,6 +1,7 @@
 import os
 import yaml
 
+
 def load_config():
     """
     load project config written in yml
