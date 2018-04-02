@@ -1,3 +1,4 @@
+import prepare_utest
 import unittest
 from run import scrape_html
 
