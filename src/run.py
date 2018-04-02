@@ -1,3 +1,6 @@
+import os
+import yaml
+
 from urllib.request import urlopen
 from urllib.error import URLError, HTTPError
 from bs4 import BeautifulSoup
@@ -81,7 +84,22 @@ def insert_job_data(db_uri, job_data):
     session.commit()
 
 
+def load_config():
+    """
+    load project config written in yml
+    :return: conf dict
+    """
+
+    project_root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    conf_path = os.path.join(project_root_dir, 'config', 'conf.yml')
+    with open(conf_path, 'r') as yml_file:
+        configs = yaml.load(yml_file)
+    return configs
+
+
 def main():
+
+    conf = load_config()
 
     db_uri = 'postgres://test:testpass@db:5432/heyjobs'
     target_url = 'https://www.heyjobs.de/en/jobs-in-berlin'
