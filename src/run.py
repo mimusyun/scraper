@@ -1,6 +1,7 @@
 from urllib.request import urlopen
 from urllib.error import URLError, HTTPError
 from init_db import init_db, Job
+from bs4 import BeautifulSoup
 
 
 def scrape_html(url):
@@ -32,7 +33,27 @@ def parse_info_from_html(html_str):
     :param html_str:
     :return: [Job(uid=..., title=...)...]
     """
-    pass
+
+    def _get_uid(_soup, target_tag, keyword, pos):
+        return [tag['href'].split('/')[pos]
+                for tag in _soup.find_all(target_tag, href=True)
+                if keyword in str(tag)]
+
+    def _get_job_title(_soup, target_tag, target_class):
+        return [tag.text
+                for tag in _soup.find_all(target_tag, {'class': target_class})]
+
+    soup = BeautifulSoup(html_str, 'html.parser')
+    uid_list = _get_uid(soup, target_tag='a', keyword='/en/jobs', pos=3)
+    title_list = _get_job_title(soup, target_tag='div', target_class='job-card-title')
+
+    if len(uid_list) != len(title_list):
+        raise ValueError('Failed to extract uid & titles '
+                         ': uid_list & title_lst must have the same length '
+                         'uid:{} / title: {}'.format(uid_list, title_list))
+
+    job_data = [Job(uid=uid_list[idx], title=title_list[idx]) for idx in range(len(uid_list))]
+    return job_data
 
 
 def main():
