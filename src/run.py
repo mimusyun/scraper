@@ -2,6 +2,7 @@ from urllib.request import urlopen
 from urllib.error import URLError, HTTPError
 from bs4 import BeautifulSoup
 
+from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
 from utils import load_config
