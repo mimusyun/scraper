@@ -1,7 +1,11 @@
 from urllib.request import urlopen
 from urllib.error import URLError, HTTPError
-from init_db import init_db, Job
 from bs4 import BeautifulSoup
+
+from sqlalchemy.orm import Session
+from sqlalchemy import create_engine
+
+from init_db import init_db, Job
 
 
 def scrape_html(url):
@@ -64,6 +68,19 @@ def parse_info_from_html(html_str):
     return job_data
 
 
+def insert_job_data(db_uri, job_data):
+    """
+    Insert data into database specified in db_uri
+    :param db_uri:
+    :param job_data:
+    :return:
+    """
+    engine = create_engine(db_uri)
+    session = Session(bind=engine)
+    session.bulk_save_objects(job_data)
+    session.commit()
+
+
 def main():
 
     db_uri = 'postgres://test:testpass@db:5432/heyjobs'
@@ -79,6 +96,8 @@ def main():
     job_ad_list = parse_info_from_html(html_str)
 
     # insert data into db
+    insert_job_data(db_uri, job_ad_list)
+
 
 
 if __name__ == '__main__':
