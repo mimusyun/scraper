@@ -97,12 +97,31 @@ def load_config():
     return configs
 
 
+def generate_postgres_uri(conf):
+    """
+    Generate postgres uri from config
+    :param conf:
+    :return: postgres uri
+    """
+    uri_placeholder = 'postgres://{user}:{passwd}@{host}:{port}/{db}'
+    uri = uri_placeholder.format(
+        user=conf['db']['user'],
+        passwd=conf['db']['passwd'],
+        host=conf['db']['host'],
+        port=conf['db']['port'],
+        db=conf['db']['db']
+    )
+    return uri
+
+
 def main():
 
+    # load config.yml
     conf = load_config()
 
-    db_uri = conf['app']['url']  # e.g. 'postgres://test:testpass@db:5432/heyjobs'
-    target_url = conf['app']['table_name']  # e.g. 'https://www.heyjobs.de/en/jobs-in-berlin'
+    # get database uri & target url for scraping
+    db_uri = generate_postgres_uri(conf)  # e.g.'postgres://test:testpass@db:5432/heyjobs'
+    target_url = conf['app']['url']  # e.g. 'https://www.heyjobs.de/en/jobs-in-berlin'
 
     # initialize db
     init_db(db_uri)
