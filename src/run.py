@@ -30,6 +30,14 @@ def parse_info_from_html(html_str):
     """
     Takes html DOMs in string format as arg
     Returns the list of Job(uid=..., title=...)
+
+    * I've made the following assumption to parse uid & job title
+    - uid is always in <a> tag
+    - uid always follows the format href="/en/jobs/...uid..."
+    - title is always in <div> tag
+    - title comes with the class 'job-card-title'
+    (less assumptions are always better to maintain the agility)
+
     :param html_str:
     :return: [Job(uid=..., title=...)...]
     """
@@ -68,6 +76,8 @@ def main():
     html_str = scrape_html(target_url)
 
     # parse uid & title from html
+    job_ad_list = parse_info_from_html(html_str)
+
     # insert data into db
 
 
