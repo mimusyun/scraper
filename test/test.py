@@ -33,11 +33,11 @@ class TestParseInfoFromHtml(unittest.TestCase):
             '</div>' \
             '</div>' \
             '</a>'
-        dict_data = parse_info_from_html(html_str)
+        obj_data = parse_info_from_html(html_str)
 
-        self.assertEqual(len(dict_data), 1)
-        self.assertEqual(dict_data[0].uid, "b8e936de-f06c-41aa-ad38-d394f58d56b8")
-        self.assertEqual(dict_data[0].title, "This is the job title I want to scrape!!!!!!!")
+        self.assertEqual(len(obj_data), 1)
+        self.assertEqual(obj_data[0].uid, "b8e936de-f06c-41aa-ad38-d394f58d56b8")
+        self.assertEqual(obj_data[0].title, "This is the job title I want to scrape!!!!!!!")
 
 
 if __name__ == '__main__':
