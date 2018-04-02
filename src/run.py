@@ -1,13 +1,13 @@
 from urllib.request import urlopen
 from urllib.error import URLError, HTTPError
-from init_db import init_db
+from init_db import init_db, Job
 
 
 def scrape_html(url):
     """
     Get html DOMs in str from the url
-    :param url:
-    :return:
+    :param url: url in str (e.g. https://www.google.com)
+    :return: html DOMs in string
     """
 
     if not isinstance(url, str):
@@ -24,6 +24,15 @@ def scrape_html(url):
         print('We failed to reach a server.')
         raise URLError(e.reason)
 
+
+def parse_info_from_html(html_str):
+    """
+    Takes html DOMs in string format as arg
+    Returns the list of Job(uid=..., title=...)
+    :param html_str:
+    :return: [Job(uid=..., title=...)...]
+    """
+    pass
 
 
 def main():
