@@ -105,7 +105,7 @@ def main():
     conf = load_config()
 
     # get database uri & target url for scraping
-    db_uri = generate_postgres_uri(conf)  # e.g.'postgres://test:testpass@db:5432/heyjobs'
+    db_uri = generate_postgres_uri(conf)  # e.g. 'postgres://test:testpass@db:5432/test'
     target_url = conf['app']['url']  # e.g. 'https://www.heyjobs.de/en/jobs-in-berlin'
 
     # initialize db
